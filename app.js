@@ -9,6 +9,16 @@ app.use(express.json())
 
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_TABLE}`, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => console.log('Connexion à MongoDB réussie !')).catch(() => console.log('Connexion à MongoDB échouée !'));
 
+const gamesRouter = require("./src/routes/games")
+const teamsRouter = require("./src/routes/teams")
+const playersRouter = require("./src/routes/players")
+const authRouter = require('./src/routes/auth')
+
+app.use('/auth', authRouter);
+app.use('/api/games', gamesRouter);
+app.use('/api/teams', teamsRouter);
+app.use('/api/players', playersRouter);
+
 
 app.get('/', async (req, res)=> {
     const games = await Game.find({})
