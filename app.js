@@ -14,7 +14,7 @@ const teamsRouter = require("./src/routes/teams")
 const playersRouter = require("./src/routes/players")
 const authRouter = require('./src/routes/auth')
 
-
+//ajout Headers pour éviter erreurs de CORS 'Cross Origin Resource Sharing'
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -22,10 +22,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/auth', authRouter);
+//app.use('/auth', authRouter);
 app.use('/api/games', gamesRouter);
-app.use('/api/teams', teamsRouter);
-app.use('/api/players', playersRouter);
+//app.use('/api/teams', teamsRouter);
+//app.use('/api/players', playersRouter);
 
 
 app.get('/', async (req, res) => {
