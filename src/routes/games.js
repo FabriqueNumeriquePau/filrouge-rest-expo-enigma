@@ -13,7 +13,7 @@ gamesRouter.use((req, res, next) => {
 });
 
 
-//API GET Liste des GAME
+//API GET --Liste des GAMES
 gamesRouter.get('/' +
     '', (req, res, next) => {
         Game.find().then(
@@ -50,8 +50,31 @@ gamesRouter.get('/api/games/:id', (req, res) => {
 
 });
 
-
 //requete POST  -- Créer un GAME
+gamesRouter.post('/', (req, res, next) => {
+    const dateGame = new Date().toLocaleString();
+    //console.log(dateGame);
+    const game = new Game({
+        dateDebut: dateGame,
+        heureDebut: req.body.heureDebut,
+        heureFin: req.body.heureFin,
+        equipes: req.body.equipes
+    });
+    game.save().then(
+        () => {
+            res.status(201).json({
+                message: 'Game enregistré'
+            });
+        }
+    ).catch(
+        (error) => {
+            res.status(400).json({
+                error: error
+            });
+        }
+    );
+});
+
 // gamesRouter.post('/api/game', (req, res) => {
 //     //console.log(req.body);
 //     const dateGame = new Date().toLocaleString();
@@ -80,7 +103,7 @@ gamesRouter.get('/api/games/:id', (req, res) => {
 //         res.send(
 //             console.log('JSON écrit !')
 //             //informer admin qu'une partie a été créé
-//             //renvoyer le statut 200
+//             //renvoyer le statut 201
 //         )
 
 //     });
@@ -88,9 +111,26 @@ gamesRouter.get('/api/games/:id', (req, res) => {
 
 //Mettre à jour un GAME
 gamesRouter.put('/api/games/:id', (req, res, next) => {
-    Game.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Game modifié !' }))
-        .catch(error => res.status(400).json({ error }));
+    const game = new Game({
+        _id: req.params.id,
+        dateDebut: req.body.dateDebut,
+        heureDebut: req.body.heureDebut,
+        heureFin: req.body.heureFin,
+        equipes: req.body.equipes
+    });
+    Game.updateOne({ _id: req.params.id }, game).then(
+        () => {
+            res.status(201).json({
+                message: 'Game updated!'
+            });
+        }
+    ).catch(
+        (error) => {
+            res.status(400).json({
+                error: error
+            });
+        }
+    );
 });
 
 //Supprimer un GAME
