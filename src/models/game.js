@@ -19,7 +19,7 @@ const gameSchema = new mongoose.Schema({
   equipes: [teamSchema]
 });
 
-const Game = mongoose.model('Game', gameSchema);
+const game = mongoose.model('Game', gameSchema);
 
 
-module.exports = Game;
+module.exports = game;
