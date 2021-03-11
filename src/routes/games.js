@@ -14,35 +14,40 @@ gamesRouter.use((req, res, next) => {
 
 
 //API GET Liste des GAME
-gamesRouter.get('/', async (req, res) => {
-    const games = await Game.find({})
-    res.status(200).json({ data: games })
-})
-
-
-// gamesRouter.get('/api/games', async (req, res, next) => {
-//     //res.send(data);
-//     // Game.find()
-//     //     .then(
-//     //         (games) => {
-//     //             res.status(200).json(games);
-//     //         }
-//     //     )
-//     //     .catch(
-//     //         (error) => {
-//     //             res.status(400).json({
-//     //                 error: error
-//     //             });
-//     //         }
-//     //     );
-
-// });
+gamesRouter.get('/' +
+    '', (req, res, next) => {
+        Game.find().then(
+            (games) => {
+                res.status(200).json(games);
+            }
+        ).catch(
+            (error) => {
+                res.status(400).json({
+                    error: error
+                });
+            }
+        );
+    });
 
 
 //API GET --Obtenir un GAME
 gamesRouter.get('/api/games/:id', (req, res) => {
 
-    res.send(data.gameID[req.body.id]);
+    //res.send(data.gameID[req.body.id]);
+    Game.findOne({
+        _id: req.params.id
+    }).then(
+        (game) => {
+            res.status(200).json(game);
+        }
+    ).catch(
+        (error) => {
+            res.status(404).json({
+                error: error
+            });
+        }
+    );
+
 });
 
 
@@ -81,14 +86,14 @@ gamesRouter.get('/api/games/:id', (req, res) => {
 //     });
 
 
-//METTRE A JOUR un GAME
+//Mettre à jour un GAME
 gamesRouter.put('/api/games/:id', (req, res, next) => {
     Game.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Game modifié !' }))
         .catch(error => res.status(400).json({ error }));
 });
 
-//SUPPRIMER un GAME
+//Supprimer un GAME
 gamesRouter.delete('/api/games/:id', (req, res, next) => {
     Game.deleteOne({ _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Gamme supprimé !' }))
