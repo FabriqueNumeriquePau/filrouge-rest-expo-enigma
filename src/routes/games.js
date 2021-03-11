@@ -19,7 +19,7 @@ gamesRouter.get('/api/games/:idGame', (req, res) => {
 });
 
 
-//requete POST  -- Créer une GAME
+//requete POST  -- Créer un GAME
 gamesRouter.post('/api/game', (req, res) => {
     //console.log(req.body);
     const dateGame = new Date().toLocaleString();
