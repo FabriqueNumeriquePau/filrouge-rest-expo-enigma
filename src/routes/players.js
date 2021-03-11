@@ -1,3 +1,8 @@
+const express = require('express')
+const router = express.Router()
+
+
+
 
 // POST --/api/player
 app.post('/api/player', (req, res) => {
@@ -32,3 +37,5 @@ app.put('/api/players/:id', (req, res) => {
     db.update('joueurs').find({ id: req.params.id}).write();
     res.send('Je met à jour un joueur !');
 })
+
+module.exports = router;
