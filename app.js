@@ -23,6 +23,12 @@ app.post('/', (req, res)=> {
     res.status(200).json(game);
 })
 
+// ERREUR - NOT FOUND
+app.get('*', (req, res)=>{
+    res.status(404).send("Personne n'est présent das l'antre de la bête.");
+});
+
+
 app.listen(port, () => {
     console.log('Server running on port ' + port);
 })
