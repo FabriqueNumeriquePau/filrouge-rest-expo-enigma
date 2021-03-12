@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const port = 3001;
-const Game = require('./src/models/game.model')
 const dotenv = require('dotenv')
 const cors = require('cors');
 dotenv.config({ path: `${__dirname}/src/config/.env` })
