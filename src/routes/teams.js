@@ -4,11 +4,21 @@ const router = express.Router()
 const TeamModel = require('./../models/teamModel')
 const bcrypt = require('bcrypt')
 
-router.get('/index', (req, res) => {
+router.get('/', (req, res) => {
     console.log("Récupération des teams")
     TeamModel.find()
         .then(teams => {
             res.send(teams);
+            res.status(200);
+        })
+        .catch(err => res.json ({ message : "Database error", error:err}))
+})
+
+router.get('/:id', (req, res) => {
+    console.log("Récupération des teams", req.params.id)
+    TeamModel.find({_id : req.params.id})
+        .then(team => {
+            res.send(team);
             res.status(200);
         })
         .catch(err => res.json ({ message : "Database error", error:err}))
@@ -36,18 +46,25 @@ router.post('/add', (req, res) => {
     }
 })
 
-router.put('/edit', (req, res) => {
+router.put('/edit/:id', (req, res) => {
     // Vérifier si le champ id est présent
-    if(!req.body.id){
+    if(!req.params.id){
         return res.status(400).json({ message: 'Informations manquantes'})
     }
 
-    TeamModel.findByIdAndUpdate(req.params.team_id)
+    bcrypt.hash(req.body.password, parseInt(process.env.BCRYPT_SALT_ROUND))
+    .then(hash => {
+        // On a reçu le mot de passe hashé on peut enregistrer le nouveau compte
+        req.body.password = hash
+
+        TeamModel.updateOne({_id: req.params.id}, req.body)
         .then(
-            res.status(200),
-            console.log("Données modifiées")
+            res.status(200).json({ message: "Données modifiées"}),
         )
-        .catch(err => res.json ({ message : "Database error", error:err}));
+        .catch(err => res.send("Une erreur s'est produit"+err));
+
+    })
+    .catch(err => res.json({ message: 'Password hash error', error: err })) 
 })
 
 router.delete('/delete/:id', (req, res) => {
@@ -57,7 +74,7 @@ router.delete('/delete/:id', (req, res) => {
             console.log(err);
         }
         else{
-            res.send(data);
+            res.send(data  + "Données suprimées");
             console.log("Data deleted");
         }
     });
