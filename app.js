@@ -28,7 +28,7 @@ const usersRouter = require('./src/routes/users');
 //     next();
 // });
 
-//app.use('/auth', authRouter);
+app.use('/auth', authRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/teams', teamsRouter);
 app.use('/api/players', playersRouter);
@@ -37,7 +37,7 @@ app.use('/api/users', usersRouter);
 
 // ERREUR - NOT FOUND
 app.get('*', (req, res) => {
-    res.status(404).send("Personne n'est présent das l'antre de la bête.");
+    res.status(404).send("Personne n'est présent dans l'antre de la bête.");
 });
 
 
