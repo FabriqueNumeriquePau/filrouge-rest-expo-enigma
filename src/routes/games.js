@@ -78,50 +78,11 @@ gamesRouter.post('/', (req, res, next) => {
     );
 });
 
-// gamesRouter.post('/api/game', (req, res) => {
-//     //console.log(req.body);
-//     const dateGame = new Date().toLocaleString();
-//     console.log(dateGame);
-
-
-//     const myGame = [
-
-//         {
-//             "dateDebut": dateGame,
-//             "heureDebut": "",
-//             "heureFin": "",
-//             "equipes": []
-
-//         }
-//     ];
-//     //res.send(myGame);
-
-//     let myGameStringified = JSON.stringify(myGame, null, 2);
-//     // On transforme le JSON en chaine de caractères
-
-//     fs.writeFile('data.json', myGameStringified, (err) => {
-//         if (err) throw err;
-//         //renvoyer un message à l'admin// status 
-
-//         res.send(
-//             console.log('JSON écrit !')
-//             //informer admin qu'une partie a été créé
-//             //renvoyer le statut 201
-//         )
-
-//     });
-
 
 //Mettre à jour un GAME
 gamesRouter.put('/:id', (req, res, next) => {
-    const game = new Game({
-        _id: req.params.id,
-        dateDebut: req.body.dateDebut,
-        heureDebut: req.body.heureDebut,
-        heureFin: req.body.heureFin,
-        equipes: req.body.equipes
-    });
-    Game.updateOne({ _id: req.params.id }, game).then(
+
+    Game.updateOne({ _id: req.params.id }, req.body).then(
         () => {
             res.status(201).json({
                 message: 'Game updated!'
