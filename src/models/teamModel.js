@@ -1,6 +1,6 @@
 /* Chargement des variables necessaires */
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 
 /*Définition du schéma d'une team */
@@ -9,7 +9,7 @@ const teamSchema = new Schema({
     login: String,
     password: String,
     players: [
-        {name : String, prenom: String}
+        { id: String }
     ]
 })
 
