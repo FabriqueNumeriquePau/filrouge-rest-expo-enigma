@@ -17,7 +17,7 @@ const gameSchema = new mongoose.Schema({
   heureDebut: String,
   heureFin: String,
   equipes: [
-    { id: String }
+    { _id: String }
   ]
 });
 

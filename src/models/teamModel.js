@@ -9,7 +9,7 @@ const teamSchema = new Schema({
     login: String,
     password: String,
     players: [
-        { id: String }
+        { _id: String }
     ]
 })
 
