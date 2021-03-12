@@ -13,7 +13,7 @@ const teamSchema = new mongoose.Schema({
 });
 
 const gameSchema = new mongoose.Schema({
-  dateDebut: { type: Date, default: Date.now },
+  dateDebut: { type: String, default: Date.now },
   heureDebut: String,
   heureFin: String,
   equipes: [teamSchema]
