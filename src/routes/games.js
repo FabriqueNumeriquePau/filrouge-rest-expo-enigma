@@ -49,7 +49,9 @@ gamesRouter.get('/:id', (req, res) => {
         }
     );
 
-}); http://127.0.0.1:3001/api/games/604a2170279f8572e0b6b05c//requete POST  -- Créer un GAME
+});
+
+//requete POST  -- Créer un GAME
 gamesRouter.post('/', (req, res, next) => {
     const dateGame = new Date().toLocaleString();
     //console.log(dateGame);
