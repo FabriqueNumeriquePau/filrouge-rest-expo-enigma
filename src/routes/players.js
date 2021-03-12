@@ -1,3 +1,10 @@
+const express = require('express');
+const app = express();
+const router = express.Router()
+
+
+
+
 
 
 // // POST --/api/player
@@ -22,6 +29,13 @@
 //     res.send(data.joueurs[req.params.id]);
 // });
 
+// PUT --/api/players/{id}
+app.put('/api/players/:id', (req, res) => {
+    db.update('joueurs').find({ id: req.params.id}).write();
+    res.send('Je met à jour un joueur !');
+})
+
+module.exports = router;
 // // DELETE  --/api/players/{id}
 // app.delete('/api/players/:id', (req, res) => {
 //     db.get('joueurs').find({ id: req.params.id }).remove().write();
