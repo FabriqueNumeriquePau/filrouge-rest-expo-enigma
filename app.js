@@ -5,6 +5,7 @@ const port = 3001;
 const dotenv = require('dotenv')
 const cors = require('cors');
 dotenv.config({ path: `${__dirname}/src/config/.env` })
+const jwt = require('jsonwebtoken');
 
 app.use(express.json())
 app.use(cors())
