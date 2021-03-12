@@ -31,7 +31,7 @@ gamesRouter.get('/' +
 
 
 //API GET --Obtenir un GAME
-gamesRouter.get('/api/games/:id', (req, res) => {
+gamesRouter.get('/:id', (req, res) => {
 
     //res.send(data.gameID[req.body.id]);
     Game.findOne({
@@ -48,9 +48,7 @@ gamesRouter.get('/api/games/:id', (req, res) => {
         }
     );
 
-});
-
-//requete POST  -- Créer un GAME
+}); http://127.0.0.1:3001/api/games/604a2170279f8572e0b6b05c//requete POST  -- Créer un GAME
 gamesRouter.post('/', (req, res, next) => {
     const dateGame = new Date().toLocaleString();
     //console.log(dateGame);
@@ -110,7 +108,7 @@ gamesRouter.post('/', (req, res, next) => {
 
 
 //Mettre à jour un GAME
-gamesRouter.put('/api/games/:id', (req, res, next) => {
+gamesRouter.put('/:id', (req, res, next) => {
     const game = new Game({
         _id: req.params.id,
         dateDebut: req.body.dateDebut,
@@ -134,7 +132,7 @@ gamesRouter.put('/api/games/:id', (req, res, next) => {
 });
 
 //Supprimer un GAME
-gamesRouter.delete('/api/games/:id', (req, res, next) => {
+gamesRouter.delete('/:id', (req, res, next) => {
     Game.deleteOne({ _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Gamme supprimé !' }))
         .catch(error => res.status(400).json({ error }));
