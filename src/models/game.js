@@ -1,25 +1,25 @@
 const mongoose = require('mongoose');
 
 const playerSchema = new mongoose.Schema({
-    nom: String,
-    prenom: String
+  nom: String,
+  prenom: String
 });
 
 const teamSchema = new mongoose.Schema({
-    score: Number,
-    login: String,
-    passe: String,
-    joueurs: [playerSchema]
+  score: Number,
+  login: String,
+  passe: String,
+  joueurs: [playerSchema]
 });
 
 const gameSchema = new mongoose.Schema({
-  dateDebut: String,
+  dateDebut: { type: Date, default: Date.now },
   heureDebut: String,
   heureFin: String,
   equipes: [teamSchema]
 });
 
-const Game = mongoose.model('Game', gameSchema);
+const game = mongoose.model('Game', gameSchema);
 
 
-module.exports = Game;
+module.exports = game;
