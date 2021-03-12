@@ -1,9 +1,9 @@
-=======
+
 const express = require('express');
 
 const gamesRouter = express.Router();
 
-const Game = require('../models/game');
+const Game = require('../models/gameModel');
 
 //ajout Headers pour éviter erreurs de CORS 'Cross Origin Resource Sharing'
 gamesRouter.use((req, res, next) => {
