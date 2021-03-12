@@ -4,6 +4,8 @@ const app = express();
 const port = 3001;
 const Game = require('./src/models/game.model')
 const dotenv = require('dotenv')
+const cors = require('cors');
+
 dotenv.config({ path : `${__dirname}/src/config/.env`} )
 app.use(express.json())
 
@@ -16,6 +18,8 @@ const gamesRouter = require("./src/routes/games")
 const teamsRouter = require("./src/routes/teams")
 
 const authRouter = require('./src/routes/auth')
+
+app.use(cors())
 
 app.use('/auth', authRouter);
 app.use('/api/games', gamesRouter);

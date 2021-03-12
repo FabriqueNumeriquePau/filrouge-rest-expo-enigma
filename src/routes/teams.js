@@ -15,7 +15,6 @@ router.get('/index', (req, res) => {
 })
 
 router.post('/add', (req, res) => {
-    console.log("Le body", req)
     try {
          // Hashage du mot de passe
          bcrypt.hash(req.body.password, parseInt(process.env.BCRYPT_SALT_ROUND))
