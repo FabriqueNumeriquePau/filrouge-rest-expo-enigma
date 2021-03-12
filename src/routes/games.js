@@ -55,6 +55,8 @@ gamesRouter.get('/:id', (req, res) => {
 gamesRouter.post('/', (req, res, next) => {
     const dateGame = new Date().toLocaleString();
     //console.log(dateGame);
+
+
     const game = new Game({
         dateDebut: dateGame,
         heureDebut: req.body.heureDebut,
