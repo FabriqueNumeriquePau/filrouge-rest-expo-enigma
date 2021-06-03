@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3001;
 const dotenv = require('dotenv')
 const cors = require('cors');
 dotenv.config({ path: `.env` })
 const jwt = require('jsonwebtoken');
+const port = process.env.API_PORT;
 
 app.use(express.json())
 app.use(cors())
