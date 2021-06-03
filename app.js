@@ -4,13 +4,17 @@ const app = express();
 const port = 3001;
 const dotenv = require('dotenv')
 const cors = require('cors');
-dotenv.config({ path: `${__dirname}/src/config/.env` })
+dotenv.config({ path: `.env` })
 const jwt = require('jsonwebtoken');
 
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_TABLE}`, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`,
+    {
+        useNewUrlParser: true, useUnifiedTopology: true,
+        auth: { user: process.env.DB_USER, password: process.env.DB_PASS }
+    })
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
@@ -44,4 +48,3 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log('Server running on port ' + port);
 })
-
