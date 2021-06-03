@@ -1,40 +1,38 @@
-version: '3.1'
+version: "3.1"
 
 services:
-
   api:
     container_name: ${API_NAME}
     build:
-        context: "."
-    command: ['node', 'app.js']
+      context: "."
+    command: ["node", "app.js"]
     restart: always
     ports:
-      - ${API_PORT}:3001
+      - ${API_PORT}:${API_PORT}
     environment:
       - DB_HOST=db
     networks:
-        - network
+      - network
     depends_on:
-        - db
+      - db
 
   db:
-    container_name: escape_api_db
+    container_name: ${API_NAME}-db
     image: mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
-
     networks:
-        - network
+      - network
     volumes:
       - db:/data/db
     ports:
-        - ${DB_PORT}:${DB_PORT}
+      - ${DB_PORT}:${DB_PORT}
 
 volumes:
   db:
 
 networks:
-    network:
-        name: "net"
+  network:
+    name: "net"
