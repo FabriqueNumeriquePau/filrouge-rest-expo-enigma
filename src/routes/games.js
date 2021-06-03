@@ -78,7 +78,6 @@ gamesRouter.post('/', (req, res, next) => {
     );
 });
 
-
 //Mettre à jour un GAME
 gamesRouter.put('/:id', (req, res, next) => {
 
@@ -100,7 +99,7 @@ gamesRouter.put('/:id', (req, res, next) => {
 //Supprimer un GAME
 gamesRouter.delete('/:id', (req, res, next) => {
     Game.deleteOne({ _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Gamme supprimé !' }))
+        .then(() => res.status(200).json({ message: 'Game supprimé !' }))
         .catch(error => res.status(400).json({ error }));
 });
 

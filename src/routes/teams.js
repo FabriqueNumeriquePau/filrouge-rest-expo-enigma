@@ -25,12 +25,16 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/add', (req, res) => {
+    if(!req.body.id_game){
+        return res.status(400).json({ message: 'Information manquante, pas de jeu selectionné'})
+    }
     try {
          // Hashage du mot de passe
          bcrypt.hash(req.body.password, parseInt(process.env.BCRYPT_SALT_ROUND))
          .then(hash => {
              // Formatage du model
             const teamM = new TeamModel();
+            teamM.id_game = req.body.id_game
             teamM.score = 0;
             teamM.login = req.body.login
             teamM.password= hash
