@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
     }
     console.log(req.body);
     // Vérification si le compte existe bien en base
-    User.find({ login: req.body.login })
+    User.findOne({ login: req.body.login })
         .then(user => {
             console.log('user:', user);
             // Vérification si utilisateur existe
@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
 
             // }
             // Je vérifie si le mot de passe est bon
-            bcrypt.compare(req.body.password, user[0].password)
+            bcrypt.compare(req.body.password, user.password)
                 .then(test => {
                     // Si différent donc test=false donc mauvais mot de passe
                     if (!test) {
@@ -39,8 +39,8 @@ router.post('/', (req, res) => {
                     console.log('login', process.env.JWT_SECRET)
                     // Les 2 hash correspondent, création du token
                     const token = jwt.sign({
-                        id: user[0]._id,
-                        login: user[0].login,
+                        id: user._id,
+                        login: user.login,
                     }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_DURING })
                     console.log('token', token)
                     return res.json({ access_token: token })
