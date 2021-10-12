@@ -3,3 +3,5 @@ node_modules/
 src/config/.env
 
 package-lock.json
+
+note.txt

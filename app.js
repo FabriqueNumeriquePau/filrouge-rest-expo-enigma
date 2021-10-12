@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const port = 3001;
+const port = 3000;
 const dotenv = require('dotenv')
 const cors = require('cors');
 dotenv.config({ path: `${__dirname}/src/config/.env` })
@@ -10,9 +10,18 @@ const jwt = require('jsonwebtoken');
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_TABLE}`, { useNewUrlParser: true, useUnifiedTopology: true })
+
+mongoose.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    authSource: 'admin',
+    auth: { user: process.env.DB_USER, password: process.env.DB_PASS }
+})
+
+
+    // mongoose.connect(mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_TABLE}`, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch(() => console.log('Connexion à MongoDB échouée !'));
+    .catch((err) => console.log('Connexion à MongoDB échouée !', err));
 
 const gamesRouter = require("./src/routes/games");
 const teamsRouter = require("./src/routes/teams");
